@@ -1,8 +1,9 @@
 import express from "express";
-import { getTrendingMovies } from "./controller.js";
+import { addToFavorites, getTrendingMovies } from "./controller.js";
 
 const router = express.Router();
 
 router.get("/", getTrendingMovies);
+router.post("/favourites", addToFavorites);
 
 export default router;

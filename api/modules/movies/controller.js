@@ -1,3 +1,4 @@
+import { prisma } from "../../prisma/client.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -16,6 +17,33 @@ export const getTrendingMovies = async (req, res) => {
         });
         const result = await response.json();
         res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error.message);
+    }
+}
+export const addToFavorites = async (req, res) => {
+    try {
+        const { movieId } = req.body;
+        const userId = 1;
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
+        if (user) {
+            await prisma.user.update({
+                where: {
+                    id: userId
+                },
+                data: {
+                    FavMovie: {
+                        push: movieId
+                    }
+                }
+            });
+        }
+        res.status(200).send("Movie added to favorites");
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);

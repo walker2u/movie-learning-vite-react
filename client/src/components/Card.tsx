@@ -1,3 +1,5 @@
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 interface Movie {
   _id: number;
   title: string;
@@ -8,6 +10,7 @@ interface Movie {
 }
 
 function Card({ movie }: { movie: Movie }) {
+  const addToFavorites = () => {};
   return (
     <div className="card card-side bg-base-100 shadow-sm">
       <figure className="w-2/3">
@@ -17,6 +20,9 @@ function Card({ movie }: { movie: Movie }) {
         <h2 className="card-title">{movie.title}</h2>
         <p>{movie.synopsis.slice(1, 100).concat("...")}</p>
         <div className="card-actions justify-end">
+          <button onClick={addToFavorites}>
+            <FavoriteIcon fontSize="large" />
+          </button>
           <button className="btn btn-primary">Watch</button>
         </div>
       </div>

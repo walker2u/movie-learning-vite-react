@@ -43,7 +43,9 @@ export const addToFavorites = async (req, res) => {
                 }
             });
         }
-        res.status(200).send("Movie added to favorites");
+        res.status(200).json({
+            message: "Movie added to favorites successfully"
+        });
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);

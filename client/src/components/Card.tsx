@@ -10,7 +10,25 @@ interface Movie {
 }
 
 function Card({ movie }: { movie: Movie }) {
-  const addToFavorites = () => {};
+  const addToFavorites = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/movies/favourites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movieId: Number(movie._id),
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="card card-side bg-base-100 shadow-sm">
       <figure className="w-2/3">

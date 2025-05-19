@@ -1,15 +1,21 @@
-function Card() {
+interface Movie {
+  _id: number;
+  title: string;
+  synopsis: string;
+  image: string;
+  status: number;
+  ranking: number;
+}
+
+function Card({ movie }: { movie: Movie }) {
   return (
     <div className="card card-side bg-base-100 shadow-sm">
-      <figure>
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          alt="Movie"
-        />
+      <figure className="w-2/3">
+        <img src={movie.image} alt="Movie" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">New movie is released!</h2>
-        <p>Click the button to watch on Jetflix app.</p>
+        <h2 className="card-title">{movie.title}</h2>
+        <p>{movie.synopsis.slice(1, 100).concat("...")}</p>
         <div className="card-actions justify-end">
           <button className="btn btn-primary">Watch</button>
         </div>

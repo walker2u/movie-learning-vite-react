@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./modules/user/user.route.js";
+import authRouter from "./modules/auth/auth.route.js"
 import { errorHandler } from "./middleware/errorHandler.js";
 import MovieRouter from "./modules/movies/route.js";
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 //user routes
 app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
 app.use(errorHandler);
 
 //movie routes

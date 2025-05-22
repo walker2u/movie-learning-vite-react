@@ -2,7 +2,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const Header = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="fixed top-0 left-0 right-0 z-50 navbar bg-base-100 shadow-sm">
       <img src="logo.png" alt="hi" height={40} width={40} />
       <div className="flex-1">
         <a className="btn btn-ghost text-xl text-red-500">IMDBerry</a>

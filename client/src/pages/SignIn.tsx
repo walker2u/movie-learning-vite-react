@@ -3,13 +3,22 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/slice/user.slice";
 
+interface RESPONSE {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: Record<string, unknown>;
+}
+
 function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [pass, setPass] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    setError("");
     try {
       const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
@@ -21,11 +30,12 @@ function SignIn() {
           password: pass,
         }),
       });
-
-      if (response.ok) {
-        const data = await response.json();
+      const data: RESPONSE = await response.json();
+      if (data.success) {
         dispatch(login(data.data));
         navigate("/");
+      } else {
+        setError(data.message);
       }
     } catch (error) {
       console.log("Error while login : ", error);
@@ -52,6 +62,7 @@ function SignIn() {
           onChange={(e) => setPass(e.target.value)}
         />
 
+        {error && <p className="text-red-500">{error}</p>}
         <button className="btn btn-neutral mt-4" onClick={handleLogin}>
           Login
         </button>

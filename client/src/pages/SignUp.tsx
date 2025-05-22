@@ -9,7 +9,7 @@ function SignUp() {
   const handleRegister = async () => {
     try {
       console.log(email, password);
-      const res = await fetch("http://localhost:3000/api/user", {
+      const res = await fetch("http://localhost:3000/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,7 +22,7 @@ function SignUp() {
       if (res.ok) {
         const data = await res.json();
         console.log(data);
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);

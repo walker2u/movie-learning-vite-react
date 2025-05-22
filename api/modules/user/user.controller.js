@@ -1,20 +1,5 @@
 import { prisma } from "../../prisma/client.js";
-
-export const createUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await prisma.user.create({
-            data: {
-                email: email,
-                password: password
-            }
-        });
-        return res.status(201).send(user);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error.message);
-    }
-};
+import { responseFormatter } from "../../helper/responseFormatter.js";
 
 export const getUserById = async (req, res) => {
     try {
@@ -25,7 +10,11 @@ export const getUserById = async (req, res) => {
                 id: id
             }
         });
-        return res.status(200).send(user);
+        if (!user) {
+            return res.json(responseFormatter(false, 404, "User not found!"));
+        }
+        const { password, ...rest } = user;
+        return res.json(responseFormatter(true, 200, "User found successfully", rest));
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);

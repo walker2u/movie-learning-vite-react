@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <div className="grid grid-cols-3 gap-4 mx-2 mb-4">
+    <div className="grid grid-cols-3 gap-4 mx-2 mb-4 mt-20">
       {movies.map((item) => (
         <Card key={item._id} movie={item} />
       ))}

@@ -17,6 +17,7 @@ function Card({ movie }: { movie: Movie }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           movieId: Number(movie._id),
         }),

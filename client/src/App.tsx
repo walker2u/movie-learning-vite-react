@@ -1,7 +1,7 @@
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "./redux/store";
+// import { useSelector } from "react-redux";
+// import type { RootState } from "./redux/store";
 
 interface Movie {
   _id: number;
@@ -14,12 +14,17 @@ interface Movie {
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const currentUser = useSelector((state: RootState) => state.user.currentUser);
-  console.log("current user :- ", currentUser);
+  // const currentUser = useSelector((state: RootState) => state.user.currentUser);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/movies");
+        const response = await fetch("http://localhost:3000/api/movies", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
         const data = await response.json();
         setMovies(data.data);
       } catch (error) {

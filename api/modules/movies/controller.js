@@ -1,3 +1,4 @@
+import { responseFormatter } from "../../helper/responseFormatter.js";
 import { prisma } from "../../prisma/client.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -25,7 +26,7 @@ export const getTrendingMovies = async (req, res) => {
 export const addToFavorites = async (req, res) => {
     try {
         const { movieId } = req.body;
-        const userId = 1;
+        const userId = req.userId;
         const user = await prisma.user.findUnique({
             where: {
                 id: userId
@@ -43,9 +44,7 @@ export const addToFavorites = async (req, res) => {
                 }
             });
         }
-        res.status(200).json({
-            message: "Movie added to favorites successfully"
-        });
+        res.json(responseFormatter(true, 200, "Movie added to favorites"));
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);

@@ -1,6 +1,14 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 navbar bg-base-100 shadow-sm">
       <img src="logo.png" alt="hi" height={40} width={40} />
@@ -8,7 +16,10 @@ export const Header = () => {
         <a className="btn btn-ghost text-xl text-red-500">IMDBerry</a>
       </div>
       <div className="flex gap-2">
-        <button className="btn btn-ghost btn-circle">
+        <button
+          className="btn btn-ghost btn-circle"
+          onClick={() => navigate("/favourites")}
+        >
           <FavoriteIcon fontSize="large" color="error" />
         </button>
         <input
@@ -16,31 +27,9 @@ export const Header = () => {
           placeholder="Search"
           className="input input-bordered w-24 md:w-auto"
         />
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        <button className="btn btn-ghost p-2" onClick={handleLogout}>
+          <ExitToAppIcon fontSize="large" />
+        </button>
       </div>
     </div>
   );

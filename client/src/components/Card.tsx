@@ -37,7 +37,7 @@ function Card({ movie }: { movie: Movie }) {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{movie.title}</h2>
-        <p>{movie.synopsis.slice(1, 100).concat("...")}</p>
+        <p>{movie?.synopsis.slice(1, 100).concat("...")}</p>
         <div className="card-actions justify-end">
           <button onClick={addToFavorites}>
             <FavoriteIcon fontSize="large" />

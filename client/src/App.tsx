@@ -1,7 +1,5 @@
 import Card from "./components/Card";
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import type { RootState } from "./redux/store";
 
 interface Movie {
   _id: number;
@@ -14,7 +12,6 @@ interface Movie {
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  // const currentUser = useSelector((state: RootState) => state.user.currentUser);
   useEffect(() => {
     const fetchMovies = async () => {
       try {

@@ -10,6 +10,7 @@ import { Header } from "./components/Header.tsx";
 
 import { Provider } from "react-redux";
 import store from "./redux/store.ts";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,7 +18,9 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/" element={<App />} />
+          </Route>
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>

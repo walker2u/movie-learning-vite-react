@@ -25,7 +25,7 @@ export const getTrendingMovies = async (req, res) => {
 }
 export const addToFavorites = async (req, res) => {
     try {
-        const { movieId } = req.body;
+        const { _id, title, synopsis, image, status, ranking } = req.body;
         const userId = req.userId;
         const user = await prisma.user.findUnique({
             where: {
@@ -39,7 +39,14 @@ export const addToFavorites = async (req, res) => {
                 },
                 data: {
                     FavMovie: {
-                        push: movieId
+                        create: {
+                            id: Number(_id),
+                            title,
+                            synopsis,
+                            image,
+                            status,
+                            ranking
+                        }
                     }
                 }
             });

@@ -28,21 +28,16 @@ export const getUserById = async (req, res) => {
 
 export const getFavMovies = async (req, res) => {
     try {
-        const favMovieArray = req.body.FavMovie;
-        const movieDetails = [];
-        for (let i = 0; i < favMovieArray.length; i++) {
-            const url = `https://${RAPID_API_HOST}/anime/by-id/${favMovieArray[i]}`;
-            const response = await fetch(url, {
-                method: "GET",
-                headers: {
-                    'x-rapidapi-key': RAPID_API_KEY,
-                    'x-rapidapi-host': RAPID_API_HOST
-                }
-            });
-            const result = await response.text();
-            movieDetails.push(result);
-        }
-        return res.json(responseFormatter(true, 200, "Favourite movies found successfully", movieDetails));
+        const userId = req.userId;
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            },
+            include: {
+                FavMovie: true
+            }
+        });
+        return res.json(responseFormatter(true, 200, "Favourite movies found successfully", user.FavMovie));
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message);

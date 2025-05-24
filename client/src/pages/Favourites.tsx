@@ -1,7 +1,5 @@
-import { useSelector } from "react-redux";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
-import type { RootState } from "../redux/store.js";
 
 interface Movie {
   _id: number;
@@ -12,18 +10,8 @@ interface Movie {
   ranking: number;
 }
 
-interface User {
-  id: number;
-  email: string;
-  FavMovie: number[];
-  createdAt: Date;
-}
-
 function Favourites() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const currentUser: User | null = useSelector(
-    (state: RootState) => state.user.currentUser
-  );
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -35,12 +23,10 @@ function Favourites() {
               "Content-Type": "application/json",
             },
             credentials: "include",
-            body: JSON.stringify({ FavMovie: currentUser?.FavMovie }),
           }
         );
         const data = await response.json();
-        console.log(data.data);
-        setMovies(data.data.slice(0, 1));
+        setMovies(data.data);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }

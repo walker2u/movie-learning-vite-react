@@ -19,7 +19,7 @@ function Card({ movie }: { movie: Movie }) {
         },
         credentials: "include",
         body: JSON.stringify({
-          movieId: Number(movie._id),
+          ...movie,
         }),
       });
       if (res.ok) {
